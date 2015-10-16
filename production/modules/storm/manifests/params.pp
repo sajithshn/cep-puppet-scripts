@@ -15,6 +15,18 @@
 #
 # ----------------------------------------------------------------------------
 #
+# Class storm::params
 
-import "cep/nodes"
-import "storm/nodes"
+# This class manages storm parameters
+#
+# Parameters:
+#
+# Usage: Uncomment the variable and assign a value to override the nodes.pp value
+#
+#
+
+class storm::params {
+   $package_repo 	  = hiera('package_repo', 'http://www.eu.apache.org/dist/storm')
+   $local_package_dir = hiera('local_package_dir', '/mnt/packs')
+   $java_home 		  = hiera('java_home', '/mnt/jdk1.7.0_55')
+}

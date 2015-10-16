@@ -1,0 +1,5 @@
+hosts:
+  zookeeper_domain: zookeeper
+nodes:
+  zookeeper: 192.168.57.170
+  nimbus: 192.168.57.169

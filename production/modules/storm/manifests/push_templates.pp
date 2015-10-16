@@ -15,6 +15,13 @@
 #
 # ----------------------------------------------------------------------------
 #
-
-import "cep/nodes"
-import "storm/nodes"
+# Apply the templates
+define storm::push_templates ($directory, $target, $owner, $group) {
+  file { "${target}/${name}":
+    ensure  => present,
+    owner   => $owner,
+    group   => $group,
+    mode    => '0755',
+    content => template("${directory}/${name}.erb"),
+  }
+}
