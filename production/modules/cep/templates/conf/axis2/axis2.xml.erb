@@ -704,7 +704,7 @@
            "membershipScheme" above is set to "wka"
         -->
         <members>
-         <%- if @clustering == true %>
+        <%- if @clustering == true %>
         <%- @members.each do |member| -%>
         <%- membername= member["name"] -%>
         <member>

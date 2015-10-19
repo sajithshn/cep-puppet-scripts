@@ -35,9 +35,7 @@
 
     <%- if @deployment_type == 'ha' -%>
     <mode name="HA" enable="true">
-    <%- else -%>
-    <mode name="HA" enable="false">
-    <%- end -%>
+
         <nodeType>
             <worker enable="<%= @worker %>"/>
             <presenter enable="<%= @presenter %>"/>
@@ -76,37 +74,34 @@
             <publisherConnectionStatusCheckInterval>30000</publisherConnectionStatusCheckInterval>
         </presentation>
     </mode>
-
+    <%- end -%>
 
     <!-- Distributed Mode Config -->
     <%- if @deployment_type == 'distributed' -%>
     <mode name="Distributed" enable="true">
-    <%- else -%>
-     <mode name="Distributed" enable="false">
-    <%- end -%>
         <nodeType>
-            <worker enable="true"/>
-            <manager enable="true">
+            <worker enable="<%= @worker %>"/>
+            <manager enable="<%= @manager %>">
                 <hostName>0.0.0.0</hostName>
-                <port>8904</port>
+                <port><%= @manager_port %></port>
             </manager>
-            <presenter enable="false">
+            <presenter enable="<%= @presenter %>">
                 <hostName>0.0.0.0</hostName>
-                <port>11000</port>
+                <port><%= @presenter_port %></port>
             </presenter>
         </nodeType>
 
         <management>
             <managers>
-                <manager>
-                    <hostName>localhost</hostName>
-                    <port>8904</port>
-                </manager>
-                <manager>
-                    <hostName>localhost</hostName>
-                    <port>8905</port>
-                </manager>
-            </managers>
+            <%- nodeinfo = scope.function_hiera(['nodes']) -%>
+            <%- @managers.each do |manager| -%>
+            <%- managername= manager["name"] -%>
+            <manager>
+                <hostName><%= nodeinfo[managername] %></hostName>
+                <port><%= manager["port"] %></port>
+            </manager>
+            <%- end -%>
+            </managers>    
             <!--Connection re-try interval to connect to Storm Manager service in case of a connection failure-->
             <reconnectionInterval>20000</reconnectionInterval>
             <!--Heart beat interval (in ms) for event listeners in "Storm Receivers" and "CEP Publishers" to acknowledge their
@@ -163,6 +158,6 @@
         <memberUpdateCheckInterval>20000</memberUpdateCheckInterval>
 
     </mode>
-
+    <%- end -%>
 </eventProcessorConfiguration>
 

@@ -4,7 +4,7 @@ node /nimbus/ {
 		version 		    		=> '0.9.5',
 		owner               => 'root',
     group               => 'root',
-    maintenance_mode		=> 'zero',	
+    maintenance_mode		=> 'new',	
 	}
 }
 
@@ -13,7 +13,7 @@ node /zookeeper/ {
     version             => '0.9.5',
     owner               => 'root',
     group               => 'root',
-    maintenance_mode    => 'zero',  
+    maintenance_mode    => 'new',  
   }
 }
 
@@ -22,7 +22,7 @@ node /stormui/ {
     version             => '0.9.5',
     owner               => 'root',
     group               => 'root',
-    maintenance_mode    => 'zero',  
+    maintenance_mode    => 'new',  
   }
 }
 

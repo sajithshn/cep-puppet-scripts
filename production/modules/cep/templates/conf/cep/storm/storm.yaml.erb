@@ -1,5 +1,4 @@
 <%- nodeinfo = scope.function_hiera(['nodes']) -%>
-
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -15,23 +14,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-storm.zookeeper.servers:
-     - "<%= nodeinfo['zookeeper'] %>"
+topology.workers: <%= @topology_workers %>
 ########### These MUST be filled in for a storm configuration
 # storm.zookeeper.servers:
 #     - "server1"
 #     - "server2"
 # 
 nimbus.host: "<%= nodeinfo['nimbus'] %>"
-
-<%- if @service_code == 'supervisor' -%>
-worker.childopts: "-Xmx<%= @worker_xmx %> -Xms<%= @worker_xms %>"
-
-supervisor.slots.ports:
-<%- @supervisor_slot_ports.each do |port| -%>
-  - <%= port["port"] %>
-<%- end -%>
-<%- end -%>
 # 
 # 
 # ##### These may optionally be filled in:

@@ -572,7 +572,11 @@
     <%- if @deployment_type == 'ha' or @deployment_type == 'distributed' -%>
     <DeploymentSynchronizer>
         <Enabled><%= @depsync %></Enabled>
+        <%- if @deployment_type == 'distributed' and @manager == false -%>
+        <AutoCommit>false</AutoCommit>
+        <%- else -%>
         <AutoCommit>true</AutoCommit>
+        <%- end -%>
         <AutoCheckout>true</AutoCheckout>
         <RepositoryType>svn</RepositoryType>
         <SvnUrl><%= @svn_url %></SvnUrl>
